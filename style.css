@@ -7,7 +7,18 @@
     font-family: 'Roboto', sans-serif;
 }
 
+.wrapper {
+    height: 100vh;
+    background: url('./assets/bg.png') no-repeat center/cover;
+    display: flex;
+    flex-flow: column;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+}
 .header {
+    position: absolute;
+    top: 0;
     padding: 25px;
     text-align: center;
 }
@@ -17,15 +28,18 @@
 }
 
 .board {
+    position: relative;
     display: grid;
     grid-template: repeat(6, 50px) / repeat(7, 50px);
-    border: 1px solid #000;
-    width: 350px;
-    height: 300px;
+    justify-content: center;
+    align-content: center;
+    border: 2px solid #000;
+    width: 354px;
+    height: 304px;
     margin: 0 auto;
 }
 
-.grid div {
+.grid .square {
     width: 50px;
     height: 50px;
 }
@@ -38,4 +52,14 @@
 .player-two {
     background-color: blue;
     border-radius: 50%;
+}
+
+.modal {
+    top: -100%;
+    z-index: 10;
+    position: absolute;
+    background-color: #8ab339;
+    font-size: 30px;
+    padding: 20px 55px;
+    transition: all .2s;
 }
