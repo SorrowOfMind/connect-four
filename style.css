@@ -19,16 +19,20 @@
 .board {
     display: grid;
     grid-template: repeat(6, 50px) / repeat(7, 50px);
-    border: 1px solid #000;
-    width: 350px;
-    height: 300px;
+    justify-content: center;
+    align-content: center;
+    border: 2px solid #000;
+    width: 354px;
+    height: 304px;
     margin: 0 auto;
 }
 
-.grid div {
+.grid .square {
     width: 50px;
     height: 50px;
 }
+
+
 
 .player-one {
     background-color: red;
