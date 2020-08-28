@@ -1,6 +1,7 @@
 const squares = document.querySelectorAll('.board div');
 const currentPlayerDisplay = document.getElementById('current-player');
 const winner = document.getElementById('winner');
+const modal = document.getElementById('modal');
 const ROW_SIZE = 7;
 let currentPlayer = 1;
 
@@ -18,6 +19,6 @@ function manageSquares (idx, squares) {
         if (currentPlayer === 1) assignSquare(squares[idx], 'player-one', 2);
         else assignSquare(squares[idx], 'player-two', 1);
     } else {
-
-    }
+        modal.style.top = '0';
+    };
 }
