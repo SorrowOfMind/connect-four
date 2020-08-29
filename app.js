@@ -2,28 +2,33 @@ const squares = document.querySelectorAll('.board div');
 const currentPlayerDisplay = document.getElementById('current-player');
 const winnerDisplay = document.getElementById('winner');
 const modal = document.getElementById('modal');
+const gameOverModal = document.getElementById('game-over-modal');
+const playAgain = document.getElementById('play-again');
 const ROW_SIZE = 7;
-let currentPlayer = 1;
-let winner = '';
+
+let gameOptions = {
+    currentPlayer: 1,
+    winner: '',
+    gameOver: false
+}
 
 let matrix = Array(42).fill(0);
 
-squares.forEach((square, idx) => square.addEventListener('click', () => manageSquares(idx, squares)));
+if (!gameOptions.gameOver) squares.forEach((square, idx) => square.addEventListener('click', () => manageSquares(idx, squares)));
 
-const assignSquare = (sq, idx, playerTag, player) => {
+const assignSquare = (sq, idx, playerTag, player, nextPlayer) => {
     sq.classList.add('occupied');
     sq.classList.add(playerTag);
-    currentPlayer = player;
-    matrix[idx] = currentPlayer;
-    currentPlayerDisplay.innerText = currentPlayer;
-    console.log(matrix);
+    gameOptions.currentPlayer = nextPlayer;
+    matrix[idx] = player;
+    currentPlayerDisplay.innerText = nextPlayer;
 }
 
 function manageSquares (idx, squares) {
     if (squares[idx].classList.contains('occupied')) return;
     if (squares[idx + ROW_SIZE].classList.contains('occupied')) {
-        if (currentPlayer === 1) assignSquare(squares[idx], idx, 'player-one', 2);
-        else assignSquare(squares[idx], idx, 'player-two', 1);
+        if (gameOptions.currentPlayer === 1) assignSquare(squares[idx], idx, 'player-one', 1, 2);
+        else assignSquare(squares[idx], idx, 'player-two', 2, 1);
     } else {
         modal.style.top = '0';
         setTimeout(() => {
@@ -36,16 +41,17 @@ function manageSquares (idx, squares) {
 const checkIfWinner = () => {
     let player1Arr = filterIdx([], 1);
     let player2Arr = filterIdx([], 2);
-   console.log(player1Arr, player2Arr);
+   console.log('1',player1Arr, '2', player2Arr);
    if (player1Arr.length >= 4 || player2Arr.length >= 4) {
        winningSequences.forEach(sequence => {
-           if (sequence.includes((player1Arr[0] && player1Arr[1] && player1Arr[2] && player1Arr[3]))) winner = 'PLAYER 1';
-           if (sequence.includes((player2Arr[0] && player2Arr[1] && player2Arr[2] && player2Arr[3]))) winner = 'PLAYER 2';
+           if (sequence.includes(player1Arr[0]) && sequence.includes(player1Arr[1]) && sequence.includes(player1Arr[2]) && sequence.includes(player1Arr[3])) gameOptions.winner = 'PLAYER 1';
+           if (sequence.includes(player2Arr[0]) && sequence.includes(player2Arr[1]) && sequence.includes(player2Arr[2]) && sequence.includes(player2Arr[3])) gameOptions.winner = 'PLAYER 2';
        });
    }
-   console.log(winner)
-   if (winner) {
-       winnerDisplay.innerText = winner;
+   if (gameOptions.winner) {
+       gameOptions.gameOver = true;
+       winnerDisplay.innerText = gameOptions.winner;
+       gameOverModal.classList.remove('hidden');
    }
 }
 
@@ -55,4 +61,6 @@ const filterIdx = (arr, player) => {
     });
     return arr;
 }
+
+playAgain.addEventListener('click', () => location.reload())
 
