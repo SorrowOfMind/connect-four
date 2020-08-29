@@ -5,14 +5,20 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Connect Four Game</title>
         <link rel="stylesheet" href="./style.css">
+        <script src="./winChart.js" defer></script>
         <script src="./app.js" defer></script>
     </head>
     <body>
         <div class="wrapper">
             <div class="modal" id="modal">Move not allowed!</div>
+            <div class="game-over-modal hidden" id="game-over-modal">
+                <div class='game-over'>
+                    <p class="winner-box">WINNER IS: <span id="winner"></span></p>
+                    <button class="play-again" id="play-again">play again</button>
+                </div>
+            </div>
             <header class="header">
                 <h2 class="player">Current move: PLAYER<span class="current-palyer" id="current-player">1</span></h2>
-                <h3 id="winner">Winner:</h3>
             </header>
             <main>
                 <div class="board">
